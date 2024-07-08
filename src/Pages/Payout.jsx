@@ -6,12 +6,15 @@ import { IoIosArrowRoundForward } from "react-icons/io"
 import CartImg1 from "../assets/img/laptop1.png"
 import CartImg2 from "../assets/img/ipad1.png"
 import SuccessImg from "../assets/img/success.png"
+import Amazon from "../assets/img/amazon.png"
+import Dollar from "../assets/img/dollar.png"
+import Card from "../assets/img/creditcard.png"
 
 const Payout = () => {
   const [open, setOpen] = useState(false)
   return (
     <>
-      <div className="flex max-w-full h-14 mt-5 px-28 text-black text-base font-[Poppins]">
+      <div className="md:flex max-w-full h-14 mt-5 px-28 text-black text-base font-[Poppins] hidden">
         <div className="flex items-center text-sm ">
           <h2>Home</h2>
           <RiArrowDropRightLine className="text-2xl" />
@@ -32,9 +35,11 @@ const Payout = () => {
           </div>
         </div>
       </div>
-      <div className="mt-4 px-28 ">
-        <h2 className="text-xl font-bold mt-6 ">Billing Information</h2>
-        <div className="flex flex-row justify-between">
+      <div className="mt-4 md:px-28 lg:px-28 px-5 ">
+        <h2 className="md:text-xl lg:text-xl text-lg font-bold mt-6 ">
+          Billing Information
+        </h2>
+        <div className="md:flex lg:flex md:flex-row lg:flex-row  md:justify-between lg:justify-between">
           <form action="" className="mt-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <div>
@@ -188,24 +193,26 @@ const Payout = () => {
               </div>
             </div>
             <div className="mt-4 border-t pt-4">
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center md:space-x-4">
                 <button
                   type="button"
                   className="flex-1 flex justify-center items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
-                  <span className="mr-2">$</span>Cash on Delivery
+                  <img src={Dollar} alt="" className="mr-2 w-4 h-4" />
+                  Cash on Delivery
                 </button>
                 <button
                   type="button"
                   className="flex-1 flex justify-center items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
-                  <span className="mr-2">a</span>Amazon Pay
+                  <img src={Amazon} alt="" className="mr-2 w-5 h-5" />
+                  Amazon Pay
                 </button>
                 <button
                   type="button"
                   className="flex-1 flex justify-center items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
-                  <span className="mr-2">💳</span>Debit/Credit Card
+                  <img src={Card} alt="" className="mr-2 w-5 h-5" /> Debit/Credit Card
                 </button>
               </div>
             </div>
@@ -280,7 +287,7 @@ const Payout = () => {
             </div>
           </form>
 
-          <div className="bg-[#fcfcfc] border-none shadow-sm rounded-sm w-[370px] h-[540px]  px-4 py-5 mr-[180px] ">
+          <div className="bg-[#fcfcfc] border-none shadow-sm rounded-sm md:w-[370px] lg:w-[370px] md:h-[540px] lg:h-[540px] mt-6 px-4 py-5 md:mr-[180px] lg:mr-[180px]  ">
             <h1 className="font-bold text-lg">Order Summary</h1>
             <p className="text-sm mt-2">Do yo have a promo code?</p>
             <div className="flex justify-between mt-3 space-x-6">
@@ -298,7 +305,7 @@ const Payout = () => {
               </div>
             </div>
 
-            <div className="flex justify-between g space-x-6">
+            <div className="flex justify-between space-x-6">
               <div>
                 <img src={CartImg2} alt="" className="w-[120px]" />
               </div>
@@ -361,12 +368,12 @@ const Payout = () => {
           </p>
           <div className="flex justify-center items-center gap-6">
             <Link to="/">
-              <button className=" flex mt-5 border shadow-sm p-3 bg-none hover:bg-gray-300 rounded-sm text-black">
+              <button className="flex mt-5 border shadow-sm p-3 bg-none hover:bg-gray-300 rounded-sm text-black">
                 Return Home
               </button>
             </Link>
             <Link to="/cartpage">
-              <button className=" flex mt-5 border-none shadow-sm p-3 bg-[#007BFF] hover:bg-[#4340da] rounded-sm text-white">
+              <button className="flex mt-5 border-none shadow-sm p-3 bg-[#007BFF] hover:bg-[#4340da] rounded-sm text-white">
                 View Order
                 <IoIosArrowRoundForward className="text-xl mt-1" />
               </button>

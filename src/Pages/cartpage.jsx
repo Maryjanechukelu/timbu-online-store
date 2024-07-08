@@ -23,16 +23,16 @@ const cartpage = () => {
           </div>
         </div>
       </div>
-      <div className="mt-5 px-28 ">
+      <div className="mt-5 md:px-28  lg:px-28 px-5 ">
         <h1 className="font-bold text-xl">Cart Page</h1>
-        <div className="flex flex-row justify-between mt-4 ">
-          <div className="bg-[#fcfcfc] border-none shadow-sm rounded-sm w-[670px] h-[280px] px-6 py-8 ">
+        <div className="md:flex lg:flex md:flex-row lg:flex-row md:justify-between lg:justify-between mt-4 ">
+          <div className="bg-[#fcfcfc] border-none shadow-sm rounded-sm md:w-[670px] md:h-[280px] w-full px-6 py-8 ">
             <div className="flex justify-between space-x-6">
               <div>
                 <img src={CartImg1} alt="" className="w-[120px]" />
               </div>
               <div className="">
-                <p className="text-sm font-bold">
+                <p className="md:text-sm lg:text-sm text-xs font-bold">
                   DELL Latitude {"3420-14"} FHD-11th Gen Intel Core I7-1165G7
                   Quad-Core-8GB
                 </p>
@@ -52,7 +52,7 @@ const cartpage = () => {
                 <img src={CartImg2} alt="" className="w-[120px] " />
               </div>
               <div>
-                <p className="text-sm font-bold">
+                <p className="md:text-sm lg:text-sm text-xs font-bold">
                   DELL Latitude {"3420-14"} FHD-11th Gen Intel Core I7-1165G7
                   Quad-Core-8GB
                 </p>
@@ -68,7 +68,7 @@ const cartpage = () => {
             </div>
           </div>
 
-          <div className="bg-[#fcfcfc] border-none shadow-sm rounded-sm w-[370px] h-[540px] -mt-20 px-4 py-5 mr-[180px] ">
+          <div className="bg-[#fcfcfc] border-none shadow-sm rounded-sm md:w-[370px] lg:w-[370px] md:h-[540px] lg:h-[540px] md:-mt-20 lg:-mt-20  mt-6 px-4 py-5 md:mr-[180px] lg:mr-[180px] ">
             <h1 className="font-bold text-lg">Order Summary</h1>
             <p className="text-sm mt-2">Do yo have a promo code?</p>
             <div className="flex justify-between mt-3 space-x-6">

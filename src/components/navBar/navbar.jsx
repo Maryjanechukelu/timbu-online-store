@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import { HiMagnifyingGlass } from "react-icons/hi2"
 import { VscAccount } from "react-icons/vsc"
 import { MdOutlineShoppingCart } from "react-icons/md"
@@ -17,7 +18,10 @@ const navbar = () => {
           />
           <HiMagnifyingGlass className="w-5 h-5" />
         </div>
-        <MdOutlineShoppingCart className="w-14 h-6 hidden md:flex lg:flex" />
+        <Link to="/cartpage" >
+          <MdOutlineShoppingCart className="w-14 h-6 hidden md:flex lg:flex" />
+        </Link>
+        
         <VscAccount className="w-14 h-6 hidden md:flex lg:flex" />
       </div>
     </div>

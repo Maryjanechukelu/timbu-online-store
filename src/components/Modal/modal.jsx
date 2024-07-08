@@ -3,7 +3,7 @@ const modal = ({ open, onClose, children }) => {
     return (
         <div
             onClick={onClose}
-            className={`fixed inset-0 flex justify-center px-10 items-center transition-colors
+            className={`fixed inset-0 flex justify-center md:px-10 px-20 items-center transition-colors
             ${open ? "visible bg-black/20" : "invisible"}
             `}
         >
