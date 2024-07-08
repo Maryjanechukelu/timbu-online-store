@@ -108,7 +108,7 @@ const hero = () => {
           </div>
 
           {/* left side */}
-          <div className=" border-none w-full h-full mx-auto my-auto border-gray-300 shadow-md font-[Poppins] px-3 py-2 md:px-6 md:py-6 lg:px-6 lg:py-6">
+          <div className=" border-none w-full h-full mx-auto my-auto border-gray-300 md:shadow-md font-[Poppins] px-3 py-2 md:px-6 md:py-6 lg:px-6 lg:py-6">
             <h1 className=" flex mt-4 font-bold">Products</h1>
             <div className="md:flex lg:flex md:justify-between lg:justify-between block justify-end w-full mt-3 ">
               <div className=" ">
