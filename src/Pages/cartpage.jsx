@@ -21,6 +21,10 @@ const CartPage = () => {
     dispatch({ type: "REMOVE_FROM_CART", payload: { id } })
   }
 
+
+  const fallbackImage = "path/to/fallback-image.jpg"
+
+
   // const handleClearCart = () => {
   //   dispatch({ type: 'CLEAR_CART' });
   // };
@@ -76,7 +80,11 @@ const CartPage = () => {
                     key={item.id}
                   >
                     <div>
-                      <img src="" alt="" className="w-[120px]" />
+                      <img
+                        src={item.image || fallbackImage}
+                        alt={item.name || "Product Image"}
+                        className="w-[120px]"
+                      />
                     </div>
                     <div className="flex-1 mt-3">
                       <p className="md:text-sm lg:text-sm text-xs font-bold">

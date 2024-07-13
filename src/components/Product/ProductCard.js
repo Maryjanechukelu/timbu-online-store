@@ -13,7 +13,17 @@ const ProductCard = ({ product }) => {
     }
     dispatch({ type: "ADD_TO_CART", payload: productWithNumberPrice })
   }
+const fallbackImage = "path/to/fallback-image.jpg"
+
+// Check if product and its photos are valid before rendering
+const imageUrl = product?.photos?.[0]?.url
+  ? `https://api.timbu.cloud/images/${product.photos[0].url}`
+  : fallbackImage
+
+
   
+  console.log("Product Data:", product)
+  console.log("Image URL:", imageUrl)
 
   return (
     <div className="border border-gray-100 px-6 md:w-[200px] md:h-[430px] lg:w-[300px] lg:h-[430px] pb-4 mt-6 rounded-md hover:shadow-md">
@@ -25,9 +35,9 @@ const ProductCard = ({ product }) => {
         </div>
         <div>
           <img
-            src={`https://api.timbu.cloud/images/${product?.photos[0]?.url}`}
+            src={imageUrl}
             height={160}
-            alt={product.name}
+            alt={product.name || "Product Image"}
             className="md:w-[150px] md:h-[150px] lg:w-[230px] lg:h-[220px]"
           />
           <div className="flex p-0">

@@ -31,7 +31,7 @@ const BottomNav = () => {
   
   return (
     <>
-      <div className="flex justify-between items-center max-w-full h-14 mt-5 mx-auto md:px-14 lg:px-14 px-2 bg-[#E22367] text-black text-base font-[Poppins]">
+      <div className="flex justify-between items-center max-w-full h-14 mt-8 mx-auto md:px-14 lg:px-14 px-2 bg-[#E22367] text-black text-base font-[Poppins]">
         <nav className="block lg:flex md:flex items-center text-white text-sm ">
           <div className="md:hidden lg:flex flex ">
             <button onClick={ToggleNavbar}>
