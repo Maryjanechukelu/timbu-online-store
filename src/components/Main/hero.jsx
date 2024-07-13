@@ -1,35 +1,74 @@
-import { useEffect, useState } from 'react';
+// import axios from 'axios';
+import { useEffect, useState } from "react"
 import { RiArrowDropDownLine } from "react-icons/ri"
 import { MdStars } from "react-icons/md"
 import { IoIosArrowRoundForward } from "react-icons/io"
 import BannerImg from "../../assets/img/flashsale-laptop.png"
 import ProductCard from "../../components/Product/ProductCard"
-import products from "../Product/Products"
+// import products from "../Product/Products"
 import categories from "../Categories/categories"
-import { getProducts } from "../../Api"
+
+const fetchProducts = async ({
+  organization_id,
+  reverse_sort,
+  page,
+  size,
+  Appid,
+  Apikey,
+}) => {
+  const url = new URL("https://timbu-get-all-products.reavdev.workers.dev/")
+  url.searchParams.append("organization_id", organization_id)
+  url.searchParams.append("reverse_sort", reverse_sort)
+  // url.searchParams.append("page", page)
+  url.searchParams.append("size", size)
+  url.searchParams.append("Appid", Appid)
+  url.searchParams.append("Apikey", Apikey)
+
+  const response = await fetch(url.toString())
+
+  if (!response.ok) {
+    throw new Error("Network response was not ok")
+  }
+
+  return response.json()
+}
 
 const Hero = () => {
 const [products, setProducts] = useState([])
-const [loading, setLoading] = useState(true)
-const [error, setError] = useState(null)
+const [isLoading, setIsLoading] = useState(true)
+const [isEmpty, setIsEmpty] = useState(false)
+const [isError, setIsError] = useState(false)
+// const [page, setPage] = useState(1)
 
 useEffect(() => {
-  const fetchProducts = async () => {
+  const params = {
+    organization_id: "00b19697d50f4c8198841e0c810259bf",
+    reverse_sort: "false",
+    size: 5,
+    Appid: "GZ36CNEXP03X0EW",
+    Apikey: "01a261506aa2480ca207f7f1eed3732220240713073416787076",
+  }
+
+  const getProducts = async () => {
+    setIsLoading(true)
+    setIsError(false)
     try {
-      const products = await getProducts()
-      setProducts(products)
-      setLoading(false)
+      const data = await fetchProducts(params)
+      setProducts(data.items)
+      setIsEmpty(data.total === 0)
     } catch (error) {
-      setError(error)
-      setLoading(false)
+      setIsError(true)
+    } finally {
+      setIsLoading(false)
     }
   }
 
-  fetchProducts()
+  getProducts()
 }, [])
 
-if (loading) return <div>Loading...</div>
-if (error) return <div>Error loading products: {error.message}</div>
+if (isLoading) return <div>Loading...</div>
+if (isError) return <div>Error fetching products</div>
+if (isEmpty) return <div>No products found</div>
 
   return (
     <>
@@ -97,9 +136,9 @@ if (error) return <div>Error loading products: {error.message}</div>
           </div>
 
           <div className=" w-full h-full px-3 py- md:px-6 md:py- lg:px-6 lg:py-">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-16 lg:gap-4  mt-4">
-              {products.map((product, index) => (
-                <ProductCard key={index} product={products} />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-12 lg:gap-4  mt-4">
+              {products.map(product => (
+                <ProductCard key={product.id} product={product} />
               ))}
             </div>
           </div>

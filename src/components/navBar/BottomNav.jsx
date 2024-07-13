@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { Link } from "react-router-dom"
 import { IoMenuOutline, IoClose } from "react-icons/io5"
 import { RiArrowDropDownLine } from "react-icons/ri"
 import { GiMonclerJacket } from "react-icons/gi"
@@ -43,11 +44,13 @@ const BottomNav = () => {
           </div>
           <h2>All Categories</h2>
           <NavLink />
+          <Link to="/">
           <div className="hidden md:flex lg:flex  ml-4">
             <button>Products</button>
             <RiArrowDropDownLine className="text-2xl" />
             <div></div>
           </div>
+          </Link>
           <div className="hidden md:flex lg:flex ml-4">
             <h2>Blog</h2>
           </div>
