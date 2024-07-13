@@ -5,7 +5,7 @@ import { useCart } from "../../CartContext"
 
 const ProductCard = ({ product }) => {
   const { dispatch } = useCart()
-  const imageUrl = `https://api.timbu.cloud/images/${product.photos[0].url}`
+  // const imageUrl = `https://api.timbu.cloud/images/${product.photos[0].url}`
   const handleAddToCart = (product) => {
     const productWithNumberPrice = {
       ...product,
@@ -25,7 +25,7 @@ const ProductCard = ({ product }) => {
         </div>
         <div>
           <img
-            src={ imageUrl}
+            src={`https://api.timbu.cloud/images/${product?.photos[0]?.url}`}
             height={160}
             alt={product.name}
             className="md:w-[150px] md:h-[150px] lg:w-[230px] lg:h-[220px]"

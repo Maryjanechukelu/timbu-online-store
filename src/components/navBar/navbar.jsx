@@ -16,7 +16,7 @@ const Navbar = () => {
         TimbuCloudShop
       </h1>
       <div className="md:flex lg:flex md:justify-center lg:justify-center justify-between items-center">
-        <div className="flex items-center md:mr-10 bg-white md:w-[320px] lg:w-[320px] md:h-12 h-7 w-[180px] shadow-xs rounded-lg border border-gray-300 p-2  ">
+        <div className="flex -mb-12 md:-mb-0 lg:-mb-0 items-center md:mr-10 bg-white md:w-[320px] lg:w-[320px] md:h-12 h-7 w-[180px] shadow-xs rounded-lg border border-gray-300 p-2  ">
           <input
             type="text"
             placeholder="Search Product"
@@ -32,7 +32,6 @@ const Navbar = () => {
             </span>
           </div>
         </Link>
-
         <VscAccount className="w-14 h-6 hidden md:flex lg:flex" />
       </div>
     </div>
