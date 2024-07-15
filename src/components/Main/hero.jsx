@@ -43,8 +43,8 @@ const [isError, setIsError] = useState(false)
 useEffect(() => {
   const params = {
     organization_id: "00b19697d50f4c8198841e0c810259bf",
-    reverse_sort: "false",
-    size: 5,
+    reverse_sort: "true",
+    size: 12,
     Appid: "GZ36CNEXP03X0EW",
     Apikey: "01a261506aa2480ca207f7f1eed3732220240713073416787076",
   }
