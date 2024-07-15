@@ -4,10 +4,9 @@ import { Link } from "react-router-dom"
 import { RiArrowDropRightLine } from "react-icons/ri"
 import { useCart } from "../CartContext"
 
-const CartPage = () => {
+const CartPage = ({ product }) => {
   const { state, dispatch } = useCart()
   const { cartItems } = state
-  
 
   const handleIncrement = (id) => {
     dispatch({ type: "INCREMENT_QUANTITY", payload: { id } })
@@ -21,9 +20,12 @@ const CartPage = () => {
     dispatch({ type: "REMOVE_FROM_CART", payload: { id } })
   }
 
-
   const fallbackImage = "path/to/fallback-image.jpg"
 
+  // Check if product and its photos are valid before rendering
+  const imageUrl = product?.photos?.[0]?.url
+    ? `https://api.timbu.cloud/images/${product.photos[0].url}`
+    : fallbackImage
 
   // const handleClearCart = () => {
   //   dispatch({ type: 'CLEAR_CART' });
@@ -81,7 +83,7 @@ const CartPage = () => {
                   >
                     <div>
                       <img
-                        src={item.image || fallbackImage}
+                        src={imageUrl}
                         alt={item.name || "Product Image"}
                         className="w-[120px]"
                       />
