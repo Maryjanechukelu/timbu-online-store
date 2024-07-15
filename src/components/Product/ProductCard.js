@@ -2,28 +2,28 @@ import { CiStar, CiHeart } from "react-icons/ci"
 import { IoEyeOutline } from "react-icons/io5"
 import { Link } from "react-router-dom"
 import { useCart } from "../../CartContext"
-import { ToastContainer, toast } from "react-toastify"
+import { ToastContainer} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 
 const ProductCard = ({ product }) => {
- const notifyAddToCart = () => {
-   toast.success("Product Successfully added to Cart", {
-     position: "top-center",
-     autoClose: 2000,
-     hideProgressBar: true,
-     closeOnClick: true,
-     pauseOnHover: true,
-     draggable: true,
-     progress: undefined,
-     style: {
-       backgroundColor: "green",
-       color: "white",
-       width: "100vw", 
-       maxWidth: "100%", 
-       textAlign: "center",
-     },
-   })
- }
+//  const notifyAddToCart = () => {
+//    toast.success("Product Successfully added to Cart", {
+//      position: "top-center",
+//      autoClose: 2000,
+//      hideProgressBar: true,
+//      closeOnClick: true,
+//      pauseOnHover: true,
+//      draggable: true,
+//      progress: undefined,
+//      style: {
+//        backgroundColor: "green",
+//        color: "white",
+//        width: "100vw", 
+//        maxWidth: "100%", 
+//        textAlign: "center",
+//      },
+//    })
+//  }
 
 //  const notifyAddToWishlist = () => {
 //    toast.success("Product Successfully added to Wishlist", {
@@ -46,7 +46,7 @@ const ProductCard = ({ product }) => {
       price: Number(product?.current_price?.[0]?.USD?.[0] || 0),
     }
     dispatch({ type: "ADD_TO_CART", payload: productWithNumberPrice })
-     notifyAddToCart()
+    
   }
 const fallbackImage = "path/to/fallback-image.jpg"
 
@@ -65,7 +65,7 @@ const imageUrl = product?.photos?.[0]?.url
       <div className="group">
         <div className="flex justify-end items-center mt-4">
           <span className="border-none shadow-sm p-2 invisible group-hover:visible bg-[#E22367] rounded-lg w-11 h-10 text-white">
-            5o%
+            50%
           </span>
         </div>
         <div>

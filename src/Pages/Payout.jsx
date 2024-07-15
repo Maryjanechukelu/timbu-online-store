@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useCart } from "../CartContext"
+import { useForm } from "react-hook-form"
 import { Link } from "react-router-dom"
 import Modal from "../components/Modal/modal"
 import { RiArrowDropRightLine } from "react-icons/ri"
@@ -13,60 +14,90 @@ import Card from "../assets/img/creditcard.png"
 
 const Payout = () => {
   const [open, setOpen] = useState(false)
-  const { state, dispatch } = useCart(); // Use cart state and dispatch
-  const { cartItems } = state;
+  const { state, dispatch } = useCart() // Use cart state and dispatch
+  const { cartItems } = state
+  const {
+    register,
+    handleSubmit: handleFormSubmit,
+    formState: { errors },
+  } = useForm()
+
+  const onSubmit = (data) => {
+    console.log(data)
+    // Call the provided handleSubmit function with the form data
+    handleSubmit(data)
+  }
   const [form, setForm] = useState({
-    firstName: '',
-    lastName: '',
-    companyName: '',
-    address: '',
-    country: '',
-    state: '',
-    city: '',
-    zipCode: '',
-    email: '',
-    phoneNumber: '',
-    cardName: '',
-    cardNumber: '',
-    cardExpiry: '',
-    cardCVC: '',
-    orderNotes: ''
-  });
+    firstName: "",
+    lastName: "",
+    companyName: "",
+    address: "",
+    country: "",
+    state: "",
+    city: "",
+    zipCode: "",
+    email: "",
+    phoneNumber: "",
+    cardName: "",
+    cardNumber: "",
+    cardExpiry: "",
+    cardCVC: "",
+    orderNotes: "",
+  })
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
-  };
+    const { name, value } = e.target
+    setForm({ ...form, [name]: value })
+  }
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Order placed:', { ...form, cartItems });
-    dispatch({ type: 'CLEAR_CART' });
-    setOpen(true);
-  };
+    e.preventDefault()
+    console.log("Order placed:", { ...form, cartItems })
+    dispatch({ type: "CLEAR_CART" })
+    setOpen(true)
+  }
 
-  const totalAmount = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+  const totalAmount = cartItems.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  )
   return (
     <>
       <div>
         <div className="md:flex max-w-full h-14 mt-5 px-28 text-black text-base font-[Poppins] hidden">
           <div className="flex items-center text-sm ">
-            <h2>Home</h2>
-            <RiArrowDropRightLine className="text-2xl" />
+            <Link to="/">
+              <h2 className="hover:text-[#E22367] active:text-blue-500">
+                Home
+              </h2>
+              <RiArrowDropRightLine className="text-2xl" />
+            </Link>
             <div className="flex ml-1">
-              <h2>Products Listing</h2>
+              <Link to="/">
+                <h2 className="hover:text-[#E22367] active:text-blue-500">
+                  Products Listing
+                </h2>
+                <RiArrowDropRightLine className="text-xl" />
+              </Link>
+            </div>
+            <div className="flex ml-1">
+              <Link to="/">
+                <h2 className="hover:text-[#E22367] active:text-blue-500">
+                  Computers & Tablets
+                </h2>
+                <RiArrowDropRightLine className="text-xl" />
+              </Link>
+            </div>
+            <div className="flex ml-1">
+              <h2 className="hover:text-[#E22367] active:text-blue-500">
+                Cart
+              </h2>
               <RiArrowDropRightLine className="text-xl" />
             </div>
             <div className="flex ml-1">
-              <h2>Computers & Tablets</h2>
-              <RiArrowDropRightLine className="text-xl" />
-            </div>
-            <div className="flex ml-1">
-              <h2>Cart</h2>
-              <RiArrowDropRightLine className="text-xl" />
-            </div>
-            <div className="flex ml-1">
-              <h2>Checkout</h2>
+              <h2 className="hover:text-[#E22367] active:text-blue-500">
+                Checkout
+              </h2>
             </div>
           </div>
         </div>
@@ -76,7 +107,11 @@ const Payout = () => {
           </h2>
           <div className="mt-4 md:px-28 lg:px-28 px-5 flex gap-12 ">
             <div className="md:flex lg:flex md:flex-row lg:flex-row  md:justify-between lg:justify-between">
-              <form action="" onSubmit={handleSubmit} className="mt-4">
+              <form
+                action=""
+                onSubmit={handleFormSubmit(onSubmit)}
+                className="mt-4"
+              >
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   <div>
                     <label
@@ -89,28 +124,48 @@ const Payout = () => {
                       type="text"
                       id="first-name"
                       name="firstName"
+                      {...register("firstName", {
+                        required: "First Name is required",
+                      })}
                       value={form.firstName}
                       onChange={handleChange}
-                      className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className={`mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
+                        errors.firstName ? "border-red-500" : ""
+                      }`}
                     />
+                    {errors.firstName && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.firstName.message}
+                      </p>
+                    )}
                   </div>
-                  <div>
-                    <label
-                      htmlFor="last-name"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Last Name
-                    </label>
-                    <input
-                      type="text"
-                      id="last-name"
-                      name="lastName"
-                      value={form.lastName}
-                      onChange={handleChange}
-                      className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                    />
-                  </div>
+
+                  <label
+                    htmlFor="last-name"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Last Name
+                  </label>
+                  <input
+                    type="text"
+                    id="last-name"
+                    name="lastName"
+                    {...register("lastName", {
+                      required: "Last Name is required",
+                    })}
+                    value={form.lastName}
+                    onChange={handleChange}
+                    className={`mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
+                      errors.lastName ? "border-red-500" : ""
+                    }`}
+                  />
+                  {errors.lastName && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.lastName.message}
+                    </p>
+                  )}
                 </div>
+
                 <div className="mt-4">
                   <label
                     htmlFor="company-name"
@@ -122,6 +177,7 @@ const Payout = () => {
                     type="text"
                     id="company-name"
                     name="companyName"
+                    {...register("companyName")}
                     value={form.companyName}
                     onChange={handleChange}
                     className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -138,10 +194,20 @@ const Payout = () => {
                     type="text"
                     id="address"
                     name="address"
+                    {...register("address", {
+                      required: "Address is required",
+                    })}
                     value={form.address}
                     onChange={handleChange}
-                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className={`mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
+                      errors.address ? "border-red-500" : ""
+                    }`}
                   />
+                  {errors.address && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.address.message}
+                    </p>
+                  )}
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
                   <div className="md:col-span-2">
@@ -154,11 +220,24 @@ const Payout = () => {
                     <select
                       id="country"
                       name="country"
-                      value={form.country}
                       onChange={handleChange}
-                      className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      {...register("country", {
+                        required: "Country is required",
+                      })}
+                      className={`mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
+                        errors.country ? "border-red-500" : ""
+                      }`}
                     >
+                      {errors.country && (
+                        <p className="text-red-500 text-xs mt-1">
+                          {errors.country.message}
+                        </p>
+                      )}
+
                       <option>Select...</option>
+                      <option>USA</option>
+                      <option>Canada</option>
+                      <option>UK</option>
                     </select>
                   </div>
                   <div className="md:col-span-2">
@@ -173,9 +252,20 @@ const Payout = () => {
                       name="state"
                       value={form.state}
                       onChange={handleChange}
-                      className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      {...register("state", { required: "State is required" })}
+                      className={`mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
+                        errors.state ? "border-red-500" : ""
+                      }`}
                     >
+                      {errors.state && (
+                        <p className="text-red-500 text-xs mt-1">
+                          {errors.state.message}
+                        </p>
+                      )}
                       <option>Select...</option>
+                      <option>California</option>
+                      <option>Texas</option>
+                      <option>New York</option>
                     </select>
                   </div>
                   <div>
@@ -188,11 +278,18 @@ const Payout = () => {
                     <input
                       type="text"
                       id="city"
-                      name="city"
                       value={form.city}
                       onChange={handleChange}
-                      className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      {...register("city", { required: "City is required" })}
+                      className={`mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
+                        errors.city ? "border-red-500" : ""
+                      }`}
                     />
+                    {errors.city && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.city.message}
+                      </p>
+                    )}
                   </div>
                   <div>
                     <label
@@ -204,11 +301,20 @@ const Payout = () => {
                     <input
                       type="text"
                       id="zip-code"
-                      name="zipCode"
                       value={form.zipCode}
                       onChange={handleChange}
-                      className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      {...register("zipCode", {
+                        required: "Zip Code is required",
+                      })}
+                      className={`mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
+                        errors.zipCode ? "border-red-500" : ""
+                      }`}
                     />
+                    {errors.zipCode && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.zipCode.message}
+                      </p>
+                    )}
                   </div>
                   <div className="md:col-span-2">
                     <label
@@ -223,8 +329,16 @@ const Payout = () => {
                       name="email"
                       value={form.email}
                       onChange={handleChange}
-                      className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      {...register("email", { required: "Email is required" })}
+                      className={`mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
+                        errors.email ? "border-red-500" : ""
+                      }`}
                     />
+                    {errors.email && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.email.message}
+                      </p>
+                    )}
                   </div>
                   <div className="md:col-span-2">
                     <label
@@ -237,10 +351,20 @@ const Payout = () => {
                       type="tel"
                       id="phone-number"
                       name="phoneNumber"
-                      value={form.phoneNumber}
+                      {...register("phoneNumber")}
                       onChange={handleChange}
-                      className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      {...register("phoneNumber", {
+                        required: "Phone Number is required",
+                      })}
+                      className={`mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
+                        errors.phoneNumber ? "border-red-500" : ""
+                      }`}
                     />
+                    {errors.phoneNumber && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.phoneNumber.message}
+                      </p>
+                    )}
                   </div>
                 </div>
                 <div className="mt-4">
@@ -298,8 +422,18 @@ const Payout = () => {
                       name="cardName"
                       value={form.cardName}
                       onChange={handleChange}
-                      className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      {...register("cardName", {
+                        required: "Card Name is required",
+                      })}
+                      className={`mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
+                        errors.cardName ? "border-red-500" : ""
+                      }`}
                     />
+                    {errors.cardName && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.cardName.message}
+                      </p>
+                    )}
                   </div>
                   <div>
                     <label
@@ -314,8 +448,18 @@ const Payout = () => {
                       name="cardNumber"
                       value={form.cardNumber}
                       onChange={handleChange}
-                      className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      {...register("cardNumber", {
+                        required: "Card Number is required",
+                      })}
+                      className={`mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
+                        errors.cardNumber ? "border-red-500" : ""
+                      }`}
                     />
+                    {errors.cardNumber && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.cardNumber.message}
+                      </p>
+                    )}
                   </div>
                   <div>
                     <label
@@ -330,9 +474,18 @@ const Payout = () => {
                       name="cardExpiry"
                       value={form.cardExpiry}
                       onChange={handleChange}
-                      className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                      placeholder="MM/YY"
+                      {...register("cardExpiry", {
+                        required: "Card Expiry is required",
+                      })}
+                      className={`mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
+                        errors.cardExpiry ? "border-red-500" : ""
+                      }`}
                     />
+                    {errors.cardExpiry && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.cardExpiry.message}
+                      </p>
+                    )}
                   </div>
                   <div>
                     <label
@@ -347,8 +500,18 @@ const Payout = () => {
                       name="cardCVC"
                       value={form.cardCVC}
                       onChange={handleChange}
-                      className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      {...register("cardCVC", {
+                        required: "Card CVC is required",
+                      })}
+                      className={`mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
+                        errors.cardCVC ? "border-red-500" : ""
+                      }`}
                     />
+                    {errors.cardCVC && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.cardCVC.message}
+                      </p>
+                    )}
                   </div>
                 </div>
                 <div className="mt-4">
@@ -362,6 +525,7 @@ const Payout = () => {
                     id="order-notes"
                     name="orderNotes"
                     rows="4"
+                    {...register("orderNotes")}
                     value={form.orderNotes}
                     onChange={handleChange}
                     className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -369,6 +533,7 @@ const Payout = () => {
                   ></textarea>
                 </div>
               </form>
+              
 
               <div className="bg-[#fcfcfc] border-none shadow-sm rounded-sm w-full h-auto md:w-1/3 lg:w-1/3 px-4 py-5 md:mr-0 lg:mr-0 mt-6 md:mt-0 lg:mt-0">
                 <h1 className="font-bold text-lg">Order Summary</h1>

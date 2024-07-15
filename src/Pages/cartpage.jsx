@@ -27,9 +27,9 @@ const CartPage = ({ product }) => {
     ? `https://api.timbu.cloud/images/${product.photos[0].url}`
     : fallbackImage
 
-  // const handleClearCart = () => {
-  //   dispatch({ type: 'CLEAR_CART' });
-  // };
+  const handleClearCart = () => {
+    dispatch({ type: "CLEAR_CART" })
+  }
 
   return (
     <>
@@ -127,6 +127,10 @@ const CartPage = ({ product }) => {
                   </div>
                 ))
               )}
+              <button
+                onClick={handleClearCart}
+                className="bg-red-500 text-white px-4 py-2 rounded mt-4"
+              >Clear Cart</button>
             </div>
             <div className="bg-[#fcfcfc] border-none shadow-sm rounded-sm w-full md:w-1/3 lg:w-1/3 px-4 py-5 md:mr-0 lg:mr-0 mt-6 md:mt-0 lg:mt-0">
               <h1 className="font-bold text-lg">Order Summary</h1>
